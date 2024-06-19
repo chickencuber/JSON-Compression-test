@@ -11,7 +11,9 @@ function encode(string: string): Uint8Array {
     .replaceAll(":{", String.fromCharCode(0x03))
     .replaceAll(":[", String.fromCharCode(0x04))
     .replaceAll("},", String.fromCharCode(0x05))
-    .replaceAll("],", String.fromCharCode(0x06));
+    .replaceAll("],", String.fromCharCode(0x06))
+    .replaceAll("true", String.fromCharCode(0x07))
+    .replaceAll("false", String.fromCharCode(0x08));
   const arr = newString.split("");
   arr.pop();
   if (arr.shift() === "{") {
@@ -35,17 +37,18 @@ function decode(string: string): string {
   }
   let str = arr
     .join("")
+    .replaceAll(String.fromCharCode(0x07), "true")
+    .replaceAll(String.fromCharCode(0x08), "false")
     .replaceAll(String.fromCharCode(0x02), ":" + String.fromCharCode(0x01))
     .replaceAll(String.fromCharCode(0x03), ":{")
     .replaceAll(String.fromCharCode(0x04), ":[")
     .replaceAll(String.fromCharCode(0x05), "},")
     .replaceAll(String.fromCharCode(0x06), "],");
 
-  while(/\01(\d+)(.*)/g.test(str)) {
-    str = str.replace(/\01(\d+)(.*)/g, (_, len, str:string) => {
+  while (/\01(\d+)(.*)/g.test(str)) {
+    str = str.replace(/\01(\d+)(.*)/g, (_, len, str: string) => {
       const l = Number(len);
-      console.log(len, str);
-      return `"${str.slice(0, l)}"${str.slice(l, str.length)}`
+      return `"${str.slice(0, l)}"${str.slice(l, str.length)}`;
     });
   }
   return begin + str + end;

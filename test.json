@@ -4,7 +4,11 @@
         "fiz": "buz"
     },
     "baz": [
-        1, 2, 3
+        1,
+        2,
+        3
     ],
-    "hello world": "wow"
+    "hello world": "wow",
+    "this": true,
+    "thing": false
 }

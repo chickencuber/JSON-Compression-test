@@ -1,1 +1,14 @@
-{"fiz":"buz","buz":{"fiz":"buz"},"baz":[1,2,3],"hello world":"wow"}
+{
+    "fiz": "buz",
+    "buz": {
+        "fiz": "buz"
+    },
+    "baz": [
+        1,
+        2,
+        3
+    ],
+    "hello world": "wow",
+    "this": true,
+    "thing": false
+}
